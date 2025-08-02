@@ -1,0 +1,24 @@
+﻿<Window x:Class="PartnersApp.ProductEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Редактирование продукта" Height="250" Width="400">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Наименование:"/>
+        <TextBox Grid.Row="1" Text="{Binding Product.ProductName}" Margin="0,5,0,10"/>
+
+        <TextBlock Grid.Row="2" Text="Цена:"/>
+        <TextBox Grid.Row="3" Text="{Binding Product.Price}" Margin="0,5,0,10"/>
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Сохранить" Width="80" Margin="0,0,10,0" Click="SaveButton_Click"/>
+            <Button Content="Отмена" Width="80" Click="CancelButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

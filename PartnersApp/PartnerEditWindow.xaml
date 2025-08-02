@@ -1,0 +1,40 @@
+﻿<Window x:Class="PartnersApp.PartnerEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Редактирование партнера" Height="450" Width="400">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Тип партнера:"/>
+        <ComboBox Grid.Row="1" x:Name="PartnerTypeComboBox" DisplayMemberPath="TypeName"
+                 SelectedValuePath="PartnerTypeID" SelectedValue="{Binding Partner.PartnerTypeId}" Margin="0,5,0,10"/>
+
+        <TextBlock Grid.Row="2" Text="Наименование:"/>
+        <TextBox Grid.Row="3" Text="{Binding Partner.PartnerName}" Margin="0,5,0,10"/>
+
+        <TextBlock Grid.Row="4" Text="Директор:"/>
+        <TextBox Grid.Row="5" Text="{Binding Partner.DirectorName}" Margin="0,5,0,10"/>
+
+        <TextBlock Grid.Row="6" Text="Телефон:"/>
+        <TextBox Grid.Row="7" Text="{Binding Partner.Phone}" Margin="0,5,0,10"/>
+
+        <TextBlock Grid.Row="7" Text="Рейтинг:" Margin="0,194,0,0" Grid.RowSpan="2"/>
+        <TextBox Grid.Row="9" x:Name="RatingTextBox" Text="{Binding Partner.Rating, ValidatesOnExceptions=True, NotifyOnValidationError=True}" 
+         Margin="0,5,0,20" PreviewTextInput="RatingTextBox_PreviewTextInput"/>
+
+        <StackPanel Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Сохранить" Width="80" Margin="0,0,10,0" Click="SaveButton_Click"/>
+            <Button Content="Отмена" Width="80" Click="CancelButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

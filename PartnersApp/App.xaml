@@ -1,0 +1,11 @@
+﻿<Application x:Class="PartnersApp.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:PartnersApp"
+             xmlns:converters="clr-namespace:PartnersApp.Converters"
+             StartupUri="AuthWindow.xaml">
+    <Application.Resources>
+        <converters:NullToBooleanConverter x:Key="NullToBooleanConverter"/>
+        <converters:BooleanToModeConverter x:Key="BooleanToModeConverter"/>
+    </Application.Resources>
+</Application>
