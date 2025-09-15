@@ -1,0 +1,304 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище PartnersDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Partners">
+          <Key>
+            <PropertyRef Name="PartnerID" />
+          </Key>
+          <Property Name="PartnerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PartnerName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="PartnerTypeID" Type="int" Nullable="false" />
+          <Property Name="DirectorName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="Address" Type="nvarchar" MaxLength="300" />
+          <Property Name="Rating" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PartnerTypes">
+          <Key>
+            <PropertyRef Name="PartnerTypeID" />
+          </Key>
+          <Property Name="PartnerTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeName" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SalesHistory">
+          <Key>
+            <PropertyRef Name="SaleID" />
+          </Key>
+          <Property Name="SaleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PartnerID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="SaleDate" Type="datetime" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="IsAdmin" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Partners_PartnerTypes">
+          <End Role="PartnerTypes" Type="Self.PartnerTypes" Multiplicity="1" />
+          <End Role="Partners" Type="Self.Partners" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PartnerTypes">
+              <PropertyRef Name="PartnerTypeID" />
+            </Principal>
+            <Dependent Role="Partners">
+              <PropertyRef Name="PartnerTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalesHistory_Partners">
+          <End Role="Partners" Type="Self.Partners" Multiplicity="1" />
+          <End Role="SalesHistory" Type="Self.SalesHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Partners">
+              <PropertyRef Name="PartnerID" />
+            </Principal>
+            <Dependent Role="SalesHistory">
+              <PropertyRef Name="PartnerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalesHistory_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="SalesHistory" Type="Self.SalesHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="SalesHistory">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище PartnersDBModelContainer">
+          <EntitySet Name="Partners" EntityType="Self.Partners" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PartnerTypes" EntityType="Self.PartnerTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SalesHistory" EntityType="Self.SalesHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Partners_PartnerTypes" Association="Self.FK_Partners_PartnerTypes">
+            <End Role="PartnerTypes" EntitySet="PartnerTypes" />
+            <End Role="Partners" EntitySet="Partners" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalesHistory_Partners" Association="Self.FK_SalesHistory_Partners">
+            <End Role="Partners" EntitySet="Partners" />
+            <End Role="SalesHistory" EntitySet="SalesHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalesHistory_Products" Association="Self.FK_SalesHistory_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="SalesHistory" EntitySet="SalesHistory" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PartnersDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Partners">
+          <Key>
+            <PropertyRef Name="PartnerID" />
+          </Key>
+          <Property Name="PartnerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PartnerName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PartnerTypeID" Type="Int32" Nullable="false" />
+          <Property Name="DirectorName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Rating" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PartnerTypes" Relationship="Self.FK_Partners_PartnerTypes" FromRole="Partners" ToRole="PartnerTypes" />
+          <NavigationProperty Name="SalesHistory" Relationship="Self.FK_SalesHistory_Partners" FromRole="Partners" ToRole="SalesHistory" />
+        </EntityType>
+        <EntityType Name="PartnerTypes">
+          <Key>
+            <PropertyRef Name="PartnerTypeID" />
+          </Key>
+          <Property Name="PartnerTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Partners" Relationship="Self.FK_Partners_PartnerTypes" FromRole="PartnerTypes" ToRole="Partners" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <NavigationProperty Name="SalesHistory" Relationship="Self.FK_SalesHistory_Products" FromRole="Products" ToRole="SalesHistory" />
+        </EntityType>
+        <EntityType Name="SalesHistory">
+          <Key>
+            <PropertyRef Name="SaleID" />
+          </Key>
+          <Property Name="SaleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PartnerID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="SaleDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Partners" Relationship="Self.FK_SalesHistory_Partners" FromRole="SalesHistory" ToRole="Partners" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_SalesHistory_Products" FromRole="SalesHistory" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsAdmin" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Partners_PartnerTypes">
+          <End Role="PartnerTypes" Type="Self.PartnerTypes" Multiplicity="1" />
+          <End Role="Partners" Type="Self.Partners" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PartnerTypes">
+              <PropertyRef Name="PartnerTypeID" />
+            </Principal>
+            <Dependent Role="Partners">
+              <PropertyRef Name="PartnerTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalesHistory_Partners">
+          <End Role="Partners" Type="Self.Partners" Multiplicity="1" />
+          <End Role="SalesHistory" Type="Self.SalesHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Partners">
+              <PropertyRef Name="PartnerID" />
+            </Principal>
+            <Dependent Role="SalesHistory">
+              <PropertyRef Name="PartnerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalesHistory_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="SalesHistory" Type="Self.SalesHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="SalesHistory">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PartnersDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Partners" EntityType="Self.Partners" />
+          <EntitySet Name="PartnerTypes" EntityType="Self.PartnerTypes" />
+          <EntitySet Name="Products" EntityType="Self.Products" />
+          <EntitySet Name="SalesHistory" EntityType="Self.SalesHistory" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK_Partners_PartnerTypes" Association="Self.FK_Partners_PartnerTypes">
+            <End Role="PartnerTypes" EntitySet="PartnerTypes" />
+            <End Role="Partners" EntitySet="Partners" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalesHistory_Partners" Association="Self.FK_SalesHistory_Partners">
+            <End Role="Partners" EntitySet="Partners" />
+            <End Role="SalesHistory" EntitySet="SalesHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalesHistory_Products" Association="Self.FK_SalesHistory_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="SalesHistory" EntitySet="SalesHistory" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище PartnersDBModelContainer" CdmEntityContainer="PartnersDBEntities">
+          <EntitySetMapping Name="Partners">
+            <EntityTypeMapping TypeName="PartnersDBModel.Partners">
+              <MappingFragment StoreEntitySet="Partners">
+                <ScalarProperty Name="PartnerID" ColumnName="PartnerID" />
+                <ScalarProperty Name="PartnerName" ColumnName="PartnerName" />
+                <ScalarProperty Name="PartnerTypeID" ColumnName="PartnerTypeID" />
+                <ScalarProperty Name="DirectorName" ColumnName="DirectorName" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PartnerTypes">
+            <EntityTypeMapping TypeName="PartnersDBModel.PartnerTypes">
+              <MappingFragment StoreEntitySet="PartnerTypes">
+                <ScalarProperty Name="PartnerTypeID" ColumnName="PartnerTypeID" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="PartnersDBModel.Products">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SalesHistory">
+            <EntityTypeMapping TypeName="PartnersDBModel.SalesHistory">
+              <MappingFragment StoreEntitySet="SalesHistory">
+                <ScalarProperty Name="SaleID" ColumnName="SaleID" />
+                <ScalarProperty Name="PartnerID" ColumnName="PartnerID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="SaleDate" ColumnName="SaleDate" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="PartnersDBModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

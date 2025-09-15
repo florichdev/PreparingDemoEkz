@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PartnersDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Partners">
+    <Key>
+      <PropertyRef Name="PartnerID" />
+    </Key>
+    <Property Name="PartnerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PartnerName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PartnerTypeID" Type="Int32" Nullable="false" />
+    <Property Name="DirectorName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="Rating" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="PartnerTypes" Relationship="Self.FK_Partners_PartnerTypes" FromRole="Partners" ToRole="PartnerTypes" />
+    <NavigationProperty Name="SalesHistory" Relationship="Self.FK_SalesHistory_Partners" FromRole="Partners" ToRole="SalesHistory" />
+  </EntityType>
+  <EntityType Name="PartnerTypes">
+    <Key>
+      <PropertyRef Name="PartnerTypeID" />
+    </Key>
+    <Property Name="PartnerTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Partners" Relationship="Self.FK_Partners_PartnerTypes" FromRole="PartnerTypes" ToRole="Partners" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <NavigationProperty Name="SalesHistory" Relationship="Self.FK_SalesHistory_Products" FromRole="Products" ToRole="SalesHistory" />
+  </EntityType>
+  <EntityType Name="SalesHistory">
+    <Key>
+      <PropertyRef Name="SaleID" />
+    </Key>
+    <Property Name="SaleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PartnerID" Type="Int32" Nullable="false" />
+    <Property Name="ProductID" Type="Int32" Nullable="false" />
+    <Property Name="SaleDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Partners" Relationship="Self.FK_SalesHistory_Partners" FromRole="SalesHistory" ToRole="Partners" />
+    <NavigationProperty Name="Products" Relationship="Self.FK_SalesHistory_Products" FromRole="SalesHistory" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IsAdmin" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Partners_PartnerTypes">
+    <End Role="PartnerTypes" Type="Self.PartnerTypes" Multiplicity="1" />
+    <End Role="Partners" Type="Self.Partners" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PartnerTypes">
+        <PropertyRef Name="PartnerTypeID" />
+      </Principal>
+      <Dependent Role="Partners">
+        <PropertyRef Name="PartnerTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SalesHistory_Partners">
+    <End Role="Partners" Type="Self.Partners" Multiplicity="1" />
+    <End Role="SalesHistory" Type="Self.SalesHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Partners">
+        <PropertyRef Name="PartnerID" />
+      </Principal>
+      <Dependent Role="SalesHistory">
+        <PropertyRef Name="PartnerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SalesHistory_Products">
+    <End Role="Products" Type="Self.Products" Multiplicity="1" />
+    <End Role="SalesHistory" Type="Self.SalesHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="SalesHistory">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PartnersDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Partners" EntityType="Self.Partners" />
+    <EntitySet Name="PartnerTypes" EntityType="Self.PartnerTypes" />
+    <EntitySet Name="Products" EntityType="Self.Products" />
+    <EntitySet Name="SalesHistory" EntityType="Self.SalesHistory" />
+    <EntitySet Name="Users" EntityType="Self.Users" />
+    <AssociationSet Name="FK_Partners_PartnerTypes" Association="Self.FK_Partners_PartnerTypes">
+      <End Role="PartnerTypes" EntitySet="PartnerTypes" />
+      <End Role="Partners" EntitySet="Partners" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SalesHistory_Partners" Association="Self.FK_SalesHistory_Partners">
+      <End Role="Partners" EntitySet="Partners" />
+      <End Role="SalesHistory" EntitySet="SalesHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SalesHistory_Products" Association="Self.FK_SalesHistory_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="SalesHistory" EntitySet="SalesHistory" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
