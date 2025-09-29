@@ -1,0 +1,20 @@
+﻿<Window x:Class="AdmFlorichWpf.AuthWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AdmFlorichWpf"
+        mc:Ignorable="d"
+        Title="AuthWindow" Height="450" Width="800">
+    <Grid Background="#FF2E2E2E">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="300">
+            <TextBlock Text="Логин" Foreground="White" FontSize="16" Margin="0,0,0,5"/>
+            <TextBox x:Name="tbxlogin" FontSize="16" Margin="0,0,0,15"/>
+            <TextBlock Text="Пароль" Foreground="White" FontSize="16" Margin="0,0,0,5"/>
+            <PasswordBox x:Name="tbxpass" FontSize="16" Margin="0,0,0,20"/>
+            <Button Content="Войти" Click="Login_Click" 
+                Background="#FF383838" Foreground="White" 
+                FontSize="16" Height="40" BorderThickness="0"/>
+        </StackPanel>
+    </Grid>
+</Window>
