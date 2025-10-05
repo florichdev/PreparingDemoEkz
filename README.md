@@ -1,6 +1,6 @@
 <div align="center"><img src="https://github.com/devicons/devicon/blob/master/icons/csharp/csharp-original.svg" title="C#" **alt="C#" width="100" height="100"/></div>
 <h1 align="center">Подготовка к Демонстрационному экзамену.</h1>
-<h2 align="center">Изначальный проект находится в ветке <a href="https://github.com/florichdev/PreparingDemoEkz/tree/master"><b><i>master</i></b></a></h2>
+<h2 align="center">Изначальные файлы проекта находятся в ветке <a href="https://github.com/florichdev/PreparingDemoEkz/tree/master"><b><i>master</i></b></a></h2>
 <h3 align="center">Следующие изменения будут находиться в остальных ветках.</h3>
 
 <h1 align="center">Описание проекта и инструкция по установке</h1>
