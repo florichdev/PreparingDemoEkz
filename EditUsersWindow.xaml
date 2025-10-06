@@ -1,0 +1,53 @@
+﻿<Window x:Class="AdmFlorichWpf.EditUsersWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Редактирование пользователя" Height="500" Width="400" 
+        Background="#FF424242" WindowStartupLocation="CenterOwner">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Логин:" Foreground="White" Margin="0,0,0,5"/>
+        <TextBox Grid.Row="1" x:Name="Usernametbx" Text="{Binding Username}" Margin="0,0,0,10"/>
+
+        <TextBlock Grid.Row="2" Text="Пароль:" Foreground="White" Margin="0,0,0,5"/>
+        <TextBox Grid.Row="3" x:Name="Passtbx" Text="{Binding Password}" Margin="0,0,0,10"/>
+
+        <TextBlock Grid.Row="4" Text="Роль (True/False):" Foreground="White" Margin="0,0,0,5"/>
+        <TextBox Grid.Row="5" x:Name="Roletbx" Margin="0,0,0,10"/>
+
+        <TextBlock Grid.Row="6" Text="Отец:" Foreground="White" Margin="0,0,0,5"/>
+        <TextBox Grid.Row="7" x:Name="Fathertbx" Text="{Binding Family.Father}" Margin="0,0,0,10"/>
+
+        <TextBlock Grid.Row="8" Text="Мать:" Foreground="White" Margin="0,0,0,5"/>
+        <TextBox Grid.Row="9" x:Name="Mothertbx" Text="{Binding Family.Mother}" Margin="0,0,0,10"/>
+
+        <TextBlock Grid.Row="10" Text="Жена:" Foreground="White" Margin="0,0,0,5"/>
+        <TextBox Grid.Row="11" x:Name="Wifetbx" Text="{Binding Family.Wife}" Margin="0,0,0,10"/>
+
+        <TextBlock Grid.Row="12" Text="Дети:" Foreground="White" Margin="0,0,0,5"/>
+        <TextBox Grid.Row="13" x:Name="Childstbx" Text="{Binding Family.Childs}" Margin="0,0,0,20"/>
+
+        <StackPanel Grid.Row="14" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="Сохранить" Width="80" Margin="0,0,10,0" 
+                    Click="SaveUser_Click" Background="#FF424242" Foreground="White"/>
+            <Button Content="Отмена" Width="80" Click="CancelUser_Click" 
+                    Background="#FF424242" Foreground="White"/>
+        </StackPanel>
+    </Grid>
+</Window>
